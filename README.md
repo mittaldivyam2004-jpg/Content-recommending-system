@@ -10,4 +10,4 @@ content-based and collaborative filtering.
 
 ## Repository Contents
 - Music_Recommendation_System.ipynb → Main evaluation notebook
-- source codes/ → Full project source code
+- codes/ → Full project source code
