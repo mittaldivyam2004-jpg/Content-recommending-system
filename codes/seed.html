@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed Firestore Database</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(180deg, #071026, #081428);
+      color: white;
+    }
+    .container {
+      background: rgba(15, 23, 36, 0.8);
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(2, 6, 23, 0.6);
+    }
+    h1 {
+      margin: 0 0 20px;
+    }
+    button {
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #7c5cff, #5c8aff);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    #status {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      min-height: 100px;
+      text-align: left;
+      font-family: monospace;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎵 Seed Firestore Database</h1>
+    <p>Click the button to add sample songs to your database</p>
+    <button onclick="seedDatabase()">Add Sample Songs</button>
+    <div id="status">Waiting to seed...</div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC5y9r8ftqyOXe6Zio0AIoj_dCAFh_L1F4",
+      authDomain: "iiit-b2441.firebaseapp.com",
+      projectId: "iiit-b2441",
+      storageBucket: "iiit-b2441.appspot.com",
+      messagingSenderId: "700884668601",
+      appId: "1:700884668601:web:87f81b4b872c9b77c98b68",
+      measurementId: "G-FHW93MF8XZ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const songs = [
+      { song_id: 1, song_name: "Tum Hi Ho", artist: "Arijit Singh", genre: "Romantic", mood: "Sad" },
+      { song_id: 2, song_name: "Believer", artist: "Imagine Dragons", genre: "Rock", mood: "Energetic" },
+      { song_id: 3, song_name: "Perfect", artist: "Ed Sheeran", genre: "Romantic", mood: "Romantic" },
+      { song_id: 4, song_name: "Senorita", artist: "Shawn Mendes", genre: "Pop", mood: "Happy" },
+      { song_id: 5, song_name: "Raghav", artist: "A.R. Rahman", genre: "Classical", mood: "Peaceful" },
+      { song_id: 6, song_name: "Dil Dooba", artist: "KK", genre: "Bollywood", mood: "Romantic" },
+      { song_id: 7, song_name: "Kabhi Jo Badal", artist: "Arijit Singh", genre: "Romantic", mood: "Sad" },
+      { song_id: 8, song_name: "Zara Zara", artist: "Bombay Jayashri", genre: "Classical", mood: "Peaceful" }
+    ];
+
+    function log(msg) {
+      const status = document.getElementById('status');
+      status.innerHTML += msg + '<br>';
+      status.scrollTop = status.scrollHeight;
+    }
+
+    async function seedDatabase() {
+      try {
+        log('Starting to seed songs...');
+        let count = 0;
+        for (const song of songs) {
+          await db.collection('songs').add({
+            ...song,
+            play_count: 0,
+            created_at: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          count++;
+          log(`✓ Added: ${song.song_name}`);
+        }
+        log(`<strong>✓ Successfully added ${count} songs!</strong>`);
+        log('Now go to <a href="http://localhost:8000" style="color: #7c5cff;">Music Recommender</a> and refresh');
+      } catch (err) {
+        log(`✗ Error: ${err.message}`);
+        console.error(err);
+      }
+    }
+
+    log('Ready to seed database. Click the button above!');
+  </script>
+</body>
+</html>

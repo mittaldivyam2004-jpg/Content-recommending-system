@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Music Recommender</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand" id="home-logo" tabindex="0" aria-label="Home">
+        <img class="logo" src="logo.png" alt="Music Recommender Logo" />
+        <div class="brand-name">Music Recommender</div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item" id="nav-home">Home</button>
+        <button class="nav-item" id="nav-search">Search</button>
+        <button class="nav-item" id="nav-library">Your Library</button>
+
+        <div class="separator"></div>
+
+        <button class="nav-cta" id="create-playlist-btn">Create playlist</button>
+        <button class="nav-cta" id="your-playlists-btn">Your Playlist</button>
+        <button class="nav-cta" id="liked-songs-btn">Liked Songs</button>
+
+        <div class="separator"></div>
+
+        <div class="separator"></div>
+        <div class="playlists">
+          <div class="pl-title">Playlists</div>
+          <ul id="playlists-list">
+            <li class="placeholder">Loading playlists...</li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <small>© 2026 Music Recommender</small>
+      </div>
+    </aside>
+
+    <div class="main-column">
+      <header class="topbar">
+        <div class="top-left">
+          <button id="menu-toggle" class="icon-btn">☰</button>
+          <div class="search">
+            <input id="search" placeholder="What do you want to play?" />
+          </div>
+        </div>
+
+        <div class="top-right">
+          <button class="icon-btn">🔔</button>
+          <div id="user-menu" class="user-menu">
+            <a href="login.html" id="signin-btn" class="signin-btn">Sign In</a>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <section id="results">
+          <div class="placeholder"><p>Search or select a song to get started</p></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js" defer></script>
+
+  <script src="firebase-config.js" defer></script>
+  <script src="firestore-api.js" defer></script> <!-- must come BEFORE main.js -->
+  <script src="main.js" defer></script>
+</body>
+</html>
